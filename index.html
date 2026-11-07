@@ -1,0 +1,567 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lab #24 | IA Local con QV.AC</title>
+  <style>
+    :root {
+      --bg: #f4f6fb;
+      --surface: #ffffff;
+      --primary: #1e3a8a;
+      --secondary: #475569;
+      --border: #dbe2ed;
+      --high: #fee2e2;
+      --medium: #fef3c7;
+      --low: #dcfce7;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: #1e293b;
+      font-family: "Segoe UI", Arial, sans-serif;
+      line-height: 1.7;
+    }
+
+    header {
+      background: linear-gradient(135deg, #172554, #2563eb);
+      color: white;
+      text-align: center;
+      padding: 55px 20px;
+    }
+
+    header h1 {
+      margin: 0 0 12px;
+      font-size: clamp(28px, 4vw, 42px);
+    }
+
+    header p {
+      margin: 5px 0;
+      color: #dbeafe;
+      font-size: 17px;
+    }
+
+    main {
+      max-width: 1250px;
+      margin: 35px auto;
+      padding: 0 22px;
+    }
+
+    section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 30px;
+      margin-bottom: 28px;
+      box-shadow: 0 5px 20px rgba(15, 23, 42, 0.05);
+    }
+
+    h2 {
+      color: var(--primary);
+      margin-top: 0;
+      padding-bottom: 12px;
+      border-bottom: 2px solid #dbeafe;
+    }
+
+    h3 {
+      color: var(--primary);
+      margin-top: 25px;
+    }
+
+    .description {
+      color: var(--secondary);
+      margin-bottom: 25px;
+    }
+
+    .evidence {
+      text-align: center;
+    }
+
+    .evidence img {
+      display: block;
+      max-width: 100%;
+      max-height: 1200px;
+      width: auto;
+      height: auto;
+      margin: 20px auto;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+    }
+
+    .table-container {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    th {
+      background: #1e3a8a;
+      color: white;
+      text-align: left;
+      padding: 14px 12px;
+    }
+
+    td {
+      border-bottom: 1px solid var(--border);
+      padding: 14px 12px;
+      vertical-align: top;
+    }
+
+    tbody tr:nth-child(even) {
+      background: #f8fafc;
+    }
+
+    tbody tr:hover {
+      background: #eff6ff;
+    }
+
+    .tag {
+      display: inline-block;
+      border-radius: 6px;
+      padding: 4px 10px;
+      font-weight: 700;
+    }
+
+    .high {
+      background: var(--high);
+      color: #991b1b;
+    }
+
+    .medium {
+      background: var(--medium);
+      color: #92400e;
+    }
+
+    .low {
+      background: var(--low);
+      color: #166534;
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+      margin: 25px 0;
+    }
+
+    .metric {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 22px;
+      text-align: center;
+    }
+
+    .metric h3 {
+      margin: 0 0 10px;
+      font-size: 15px;
+      color: var(--secondary);
+    }
+
+    .metric .value {
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .metric p {
+      margin: 8px 0 0;
+      font-size: 13px;
+      color: var(--secondary);
+    }
+
+    .reflection {
+      padding: 18px 22px;
+      border-left: 4px solid #2563eb;
+      background: #f8fafc;
+      border-radius: 0 10px 10px 0;
+      margin-bottom: 18px;
+    }
+
+    .reflection strong {
+      color: var(--primary);
+    }
+
+    .reflection p {
+      margin-bottom: 0;
+    }
+
+    .conclusion {
+      background: #eff6ff;
+      border-radius: 10px;
+      padding: 22px;
+      margin-top: 25px;
+    }
+
+    .conclusion h3 {
+      margin-top: 0;
+    }
+
+    .note {
+      color: #64748b;
+      font-size: 13px;
+      margin-top: 18px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      color: #64748b;
+      font-size: 14px;
+    }
+
+    @media (max-width: 600px) {
+      section {
+        padding: 20px 15px;
+      }
+
+      header {
+        padding: 35px 15px;
+      }
+
+      .metrics {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>LAB #24</h1>
+    <p>IA local con QV.AC: ¿qué tan rápida y qué tan buena?</p>
+    <p>Technology & Freedom | Sesión 27</p>
+  </header>
+
+  <main>
+
+    <section>
+      <h2>1. Evidencia del laboratorio</h2>
+
+      <p class="description">
+        Comparación del rendimiento de modelos de inteligencia artificial
+        ejecutados localmente mediante QV.AC frente a un modelo de IA
+        en la nube. Se consideran el consumo estimado de memoria,
+        los tiempos de respuesta y la calidad de los resultados.
+      </p>
+
+      <div class="evidence">
+        <h3>Registro del ejercicio</h3>
+
+        <img
+          src="./evidencia.jpeg"
+          alt="Evidencia del Lab 24: ficha del equipo, memoria, predicción, mediciones de velocidad, rúbrica de calidad y comparación de resultados"
+        >
+
+        <p>
+          <strong>Configuraciones del ejemplo:</strong>
+          L1: Qwen2.5-1.5B-Instruct |
+          L2: Qwen2.5-7B-Instruct |
+          N: ChatGPT gratuito
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <h2>2. Configuraciones y memoria</h2>
+
+      <p class="description">
+        El tamaño de los modelos influye en la cantidad de memoria
+        necesaria para ejecutarlos y en los recursos computacionales
+        utilizados durante la generación de respuestas.
+      </p>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Configuración</th>
+              <th>Modelo</th>
+              <th>Parámetros</th>
+              <th>Memoria estimada a 4 bits</th>
+              <th>Disponibilidad</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>L1</strong></td>
+              <td>Qwen2.5-1.5B-Instruct</td>
+              <td>1.5B</td>
+              <td>0.75 GB</td>
+              <td><span class="tag low">Local sin internet</span></td>
+            </tr>
+            <tr>
+              <td><strong>L2</strong></td>
+              <td>Qwen2.5-7B-Instruct</td>
+              <td>7B</td>
+              <td>3.50 GB</td>
+              <td><span class="tag low">Local sin internet</span></td>
+            </tr>
+            <tr>
+              <td><strong>N</strong></td>
+              <td>ChatGPT gratuito</td>
+              <td>No especificado</td>
+              <td>Procesamiento remoto</td>
+              <td><span class="tag medium">Requiere internet</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="note">
+        La estimación a 4 bits corresponde aproximadamente a
+        0.5 GB por cada mil millones de parámetros. No incluye
+        memoria adicional para el contexto, las activaciones,
+        el runtime ni otros recursos necesarios.
+      </p>
+    </section>
+
+    <section>
+      <h2>3. Comparación de velocidad y calidad</h2>
+
+      <p class="description">
+        Los siguientes valores reproducen el ejemplo ilustrativo
+        de la evidencia. No representan mediciones verificadas
+        de un dispositivo real.
+      </p>
+
+      <div class="metrics">
+        <div class="metric">
+          <h3>Menor tiempo total</h3>
+          <div class="value">8.7 s</div>
+          <p>Nube (N), promedio aproximado</p>
+        </div>
+
+        <div class="metric">
+          <h3>Modelo local más rápido</h3>
+          <div class="value">L1</div>
+          <p>Promedio total de 19.1 s</p>
+        </div>
+
+        <div class="metric">
+          <h3>Mejor calidad</h3>
+          <div class="value">5.0 / 5</div>
+          <p>Empate entre L2 y N</p>
+        </div>
+      </div>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Configuración</th>
+              <th>Primera palabra (promedio)</th>
+              <th>Tiempo total (promedio)</th>
+              <th>Calidad promedio</th>
+              <th>Resultado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>L1 - Local pequeño</strong></td>
+              <td>1.93 s</td>
+              <td>19.07 s</td>
+              <td>4.0 / 5</td>
+              <td>Más rápido entre los locales</td>
+            </tr>
+            <tr>
+              <td><strong>L2 - Local mediano</strong></td>
+              <td>3.60 s</td>
+              <td>33.23 s</td>
+              <td>5.0 / 5</td>
+              <td>Mayor calidad local</td>
+            </tr>
+            <tr>
+              <td><strong>N - Nube</strong></td>
+              <td>1.10 s</td>
+              <td>8.73 s</td>
+              <td>5.0 / 5</td>
+              <td>Menor tiempo total y empate en calidad</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Interpretación de los resultados</h3>
+
+      <p>
+        En el ejemplo, la configuración en la nube obtuvo el menor
+        tiempo promedio de respuesta, con aproximadamente 8.7 segundos.
+        El modelo local pequeño necesitó 19.1 segundos y el modelo
+        mediano 33.2 segundos. Por lo tanto, la nube fue aproximadamente
+        un 54 % más rápida que L1 y un 74 % más rápida que L2,
+        considerando la reducción del tiempo total.
+      </p>
+
+      <p>
+        En cuanto a calidad, L2 y N alcanzaron una calificación
+        promedio de 5.0 sobre 5, mientras que L1 obtuvo 4.0.
+        Esto ilustra que un modelo más pequeño puede ofrecer
+        respuestas útiles con menos recursos, aunque puede
+        presentar limitaciones en tareas que requieren
+        mayor precisión y profundidad.
+      </p>
+
+      <p>
+        La predicción del ejemplo se cumplió parcialmente:
+        L1 fue el modelo local más rápido y L2 obtuvo mejores
+        calificaciones que L1. Sin embargo, la nube consiguió
+        el menor tiempo total y empató con L2 en calidad.
+      </p>
+    </section>
+
+    <section>
+      <h2>4. Evaluación de privacidad y aplicaciones</h2>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Aspecto</th>
+              <th>IA local</th>
+              <th>IA en la nube</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Conectividad</strong></td>
+              <td>Puede funcionar sin internet después de descargar el modelo.</td>
+              <td>Requiere conexión para enviar solicitudes y recibir respuestas.</td>
+            </tr>
+            <tr>
+              <td><strong>Procesamiento</strong></td>
+              <td>Se realiza directamente en el dispositivo.</td>
+              <td>Se realiza en servidores del proveedor.</td>
+            </tr>
+            <tr>
+              <td><strong>Privacidad</strong></td>
+              <td>Las instrucciones pueden permanecer en el dispositivo.</td>
+              <td>Las instrucciones se transmiten al proveedor para su procesamiento.</td>
+            </tr>
+            <tr>
+              <td><strong>Recursos</strong></td>
+              <td>Depende de la RAM, el procesador y la capacidad del dispositivo.</td>
+              <td>Utiliza infraestructura computacional remota.</td>
+            </tr>
+            <tr>
+              <td><strong>Uso recomendado</strong></td>
+              <td>Resúmenes, clasificación y tareas sencillas sin conexión.</td>
+              <td>Tareas complejas que requieren mayor capacidad de razonamiento.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h2>5. Reflexión y aprendizajes</h2>
+
+      <div class="reflection">
+        <strong>Rendimiento y calidad de los modelos</strong>
+
+        <p>
+          En los resultados del ejemplo, la configuración en la nube
+          fue la más rápida, con un promedio de 8.7 segundos por
+          respuesta, frente a 19.1 segundos del modelo local pequeño
+          y 33.2 segundos del mediano. En calidad, la nube y el
+          modelo local mediano empataron con 5 puntos, mientras
+          que el pequeño obtuvo 4. La predicción se cumplió
+          parcialmente, ya que el modelo pequeño fue el más
+          rápido entre los locales y el mediano generó respuestas
+          de mayor calidad, pero la nube superó a ambos en velocidad.
+        </p>
+      </div>
+
+      <div class="reflection">
+        <strong>Aplicación de modelos locales en una venture</strong>
+
+        <p>
+          El modelo local pequeño podría utilizarse en nuestra
+          venture para tareas como resumir información general,
+          organizar documentos, clasificar solicitudes o generar
+          borradores sencillos sin depender de una conexión
+          permanente a internet. Sin embargo, no sería nuestra
+          primera opción para análisis complejos, decisiones
+          financieras o procesos que requieren alta precisión
+          y razonamiento avanzado. Para estos casos sería
+          necesario evaluar modelos más capaces y mantener
+          mecanismos de validación humana.
+        </p>
+      </div>
+
+      <div class="reflection">
+        <strong>Privacidad y procesamiento de información</strong>
+
+        <p>
+          Al ejecutar un modelo local sin conexión, las instrucciones
+          se procesan dentro del dispositivo y no necesitan
+          enviarse a servidores externos. Esto permite mantener
+          mayor control sobre la información utilizada durante
+          la interacción. En cambio, al utilizar un modelo en
+          la nube, las instrucciones se transmiten al proveedor
+          del servicio para generar la respuesta. Aprendimos
+          que la elección entre IA local y en la nube no debe
+          depender únicamente de la velocidad o la calidad,
+          sino también de los requisitos de privacidad,
+          disponibilidad y seguridad de cada aplicación.
+        </p>
+      </div>
+
+      <div class="conclusion">
+        <h3>Conclusión general</h3>
+
+        <p>
+          Este laboratorio nos permitió comprender de manera
+          práctica las diferencias entre ejecutar modelos de
+          inteligencia artificial directamente en un dispositivo
+          y utilizar servicios de IA alojados en la nube.
+          Aprendimos que el rendimiento de un modelo depende
+          de factores como su cantidad de parámetros, el consumo
+          de memoria, la capacidad de procesamiento del equipo
+          y la infraestructura disponible. También observamos
+          que un modelo más grande no necesariamente ofrece
+          respuestas más rápidas, aunque puede proporcionar
+          mejores resultados en determinadas tareas.
+        </p>
+
+        <p>
+          Además, comprendimos que evaluar una inteligencia
+          artificial requiere considerar tanto métricas
+          cuantitativas, como el tiempo hasta la primera
+          palabra y el tiempo total de generación, como
+          criterios cualitativos relacionados con la precisión,
+          claridad y utilidad de las respuestas. Finalmente,
+          identificamos que la IA local representa una
+          alternativa importante para aplicaciones que
+          necesitan funcionar sin conexión o mantener
+          mayor control sobre sus datos, mientras que
+          los servicios en la nube pueden ofrecer ventajas
+          de rendimiento y capacidad. La principal enseñanza
+          es que no existe una configuración ideal para
+          todos los escenarios: la mejor elección depende
+          del equilibrio entre velocidad, calidad, recursos
+          disponibles, privacidad y necesidades del usuario.
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>CS031 | Technology & Freedom | Laboratorio 24</p>
+    <p>IA local con QV.AC | Comparación de velocidad, calidad y privacidad</p>
+  </footer>
+
+</body>
+</html>

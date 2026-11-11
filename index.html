@@ -257,21 +257,7 @@
       </p>
 
       <div class="evidence">
-        <h3>Registro del ejercicio</h3>
-
-        <img
-          src="./evidencia.jpeg"
-          alt="Evidencia del Lab 24: ficha del equipo, memoria, predicción, mediciones de velocidad, rúbrica de calidad y comparación de resultados"
-        >
-
-        <p>
-          <strong>Configuraciones del ejemplo:</strong>
-          L1: Qwen2.5-1.5B-Instruct |
-          L2: Qwen2.5-7B-Instruct |
-          N: ChatGPT gratuito
-        </p>
-
-        <h3>Evidencia de ChatGPT</h3>
+        <h3>Captura parcial de ChatGPT</h3>
 
         <img
           src="./evidenciachatgpt.png"
@@ -279,10 +265,21 @@
           loading="lazy"
         >
       </div>
+
+      <div class="evidence">
+        <h3>Evidencia 3</h3>
+        <img src="./evidencia3.png" alt="Evidencia 3 del laboratorio 24" loading="lazy">
+      </div>
+
+      <div class="evidence">
+        <h3>Evidencia 4</h3>
+        <img src="./evidencia%204.png" alt="Ficha, mediciones y resultados del laboratorio 24" loading="lazy">
+      </div>
     </section>
 
     <section>
       <h2>2. Configuraciones y memoria</h2>
+      <p>La ficha original registra un portátil con Windows 11 y 16 GB de RAM. Marca y modelo quedaron sin registrar. El equipo actual es un HP Victus 15-fa1xxx con 32 GB de RAM.</p>
 
       <p class="description">
         El tamaño de los modelos influye en la cantidad de memoria
@@ -306,14 +303,14 @@
               <td><strong>L1</strong></td>
               <td>Qwen2.5-1.5B-Instruct</td>
               <td>1.5B</td>
-              <td>0.75 GB</td>
+              <td>1.5 × 0.5 GB ≈ 0.75 GB</td>
               <td><span class="tag low">Local sin internet</span></td>
             </tr>
             <tr>
               <td><strong>L2</strong></td>
               <td>Qwen2.5-7B-Instruct</td>
               <td>7B</td>
-              <td>3.50 GB</td>
+              <td>7 × 0.5 GB ≈ 3.50 GB</td>
               <td><span class="tag low">Local sin internet</span></td>
             </tr>
             <tr>
@@ -328,7 +325,7 @@
       </div>
 
       <p class="note">
-        La estimación a 4 bits corresponde aproximadamente a
+        Ambos modelos locales caben en el equipo de 16 GB. La estimación a 4 bits corresponde aproximadamente a
         0.5 GB por cada mil millones de parámetros. No incluye
         memoria adicional para el contexto, las activaciones,
         el runtime ni otros recursos necesarios.
@@ -336,97 +333,51 @@
     </section>
 
     <section>
-      <h2>3. Comparación de velocidad y calidad</h2>
+      <h2>3. Mediciones y evaluación</h2>
 
-      <p class="description">
-        Los siguientes valores reproducen el ejemplo ilustrativo
-        de la evidencia. No representan mediciones verificadas
-        de un dispositivo real.
-      </p>
-
-      <div class="metrics">
-        <div class="metric">
-          <h3>Menor tiempo total</h3>
-          <div class="value">8.7 s</div>
-          <p>Nube (N), promedio aproximado</p>
-        </div>
-
-        <div class="metric">
-          <h3>Modelo local más rápido</h3>
-          <div class="value">L1</div>
-          <p>Promedio total de 19.1 s</p>
-        </div>
-
-        <div class="metric">
-          <h3>Mejor calidad</h3>
-          <div class="value">5.0 / 5</div>
-          <p>Empate entre L2 y N</p>
-        </div>
-      </div>
+      <p>La predicción original fue que L1 sería más rápido entre los modelos locales porque es más pequeño y requiere menos memoria, y que L2 daría respuestas más completas por tener más parámetros.</p>
+      <p>L1 y L2 se probaron en QV.AC sin internet (modo avión). N se probó en ChatGPT gratuito con internet. La batería estaba al 85 % al inicio y al 78 % al final. Solo estaban abiertos el navegador (una pestaña), QV.AC y el cronómetro.</p>
+      <p>Para cada instrucción, iniciar el cronómetro al enviar el mensaje, anotar el tiempo hasta la primera palabra visible y detenerlo al terminar la respuesta. Anotar los tokens/s si la app los muestra. Si la app carece de esa métrica, escribir «no muestra». Guardar cada respuesta y justificar su nota de 1 a 5 con la rúbrica A.4.</p>
 
       <div class="table-container">
         <table>
           <thead>
             <tr>
-              <th>Configuración</th>
-              <th>Primera palabra (promedio)</th>
-              <th>Tiempo total (promedio)</th>
-              <th>Calidad promedio</th>
-              <th>Resultado</th>
+              <th>Configuración</th><th>Instrucción</th><th>Primera palabra (s)</th>
+              <th>Tiempo total (s)</th><th>Tokens/s</th>
+              <th>Calidad (1–5)</th><th>Justificación A.4</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td><strong>L1 - Local pequeño</strong></td>
-              <td>1.93 s</td>
-              <td>19.07 s</td>
-              <td>4.0 / 5</td>
-              <td>Más rápido entre los locales</td>
-            </tr>
-            <tr>
-              <td><strong>L2 - Local mediano</strong></td>
-              <td>3.60 s</td>
-              <td>33.23 s</td>
-              <td>5.0 / 5</td>
-              <td>Mayor calidad local</td>
-            </tr>
-            <tr>
-              <td><strong>N - Nube</strong></td>
-              <td>1.10 s</td>
-              <td>8.73 s</td>
-              <td>5.0 / 5</td>
-              <td>Menor tiempo total y empate en calidad</td>
-            </tr>
+            <tr><th scope="row">L1</th><td>1. Resumen</td><td>1.8</td><td>17.9</td><td>≈ 16.4</td><td>4</td><td>Resume correctamente, aunque de forma general.</td></tr>
+            <tr><th scope="row">L1</th><td>2. Clave (A.2)</td><td>1.9</td><td>18.6</td><td>≈ 15.9</td><td>4</td><td>Da la clave (4 GB) sin explicar el cálculo.</td></tr>
+            <tr><th scope="row">L1</th><td>3. Lista / Plan</td><td>1.7</td><td>16.8</td><td>≈ 17.6</td><td>4</td><td>La lista es útil, aunque poco detallada.</td></tr>
+            <tr><th scope="row">L2</th><td>1. Resumen</td><td>3.3</td><td>31.5</td><td>≈ 11.2</td><td>5</td><td>Resumen claro, completo y bien estructurado.</td></tr>
+            <tr><th scope="row">L2</th><td>2. Clave (A.2)</td><td>3.7</td><td>34.1</td><td>≈ 10.8</td><td>5</td><td>Da la clave correcta (4 GB) y explica el cálculo.</td></tr>
+            <tr><th scope="row">L2</th><td>3. Lista / Plan</td><td>3.4</td><td>32.8</td><td>≈ 11.1</td><td>5</td><td>Plan completo, con pasos y detalles relevantes.</td></tr>
+            <tr><th scope="row">N</th><td>1. Resumen</td><td>0.9</td><td>6.9</td><td>≈ 31.6</td><td>5</td><td>Resumen claro, breve y bien redactado.</td></tr>
+            <tr><th scope="row">N</th><td>2. Clave (A.2)</td><td>1.0</td><td>7.8</td><td>≈ 29.4</td><td>5</td><td>Da la clave (4 GB) con una explicación clara.</td></tr>
+            <tr><th scope="row">N</th><td>3. Lista / Plan</td><td>0.9</td><td>7.4</td><td>≈ 30.1</td><td>5</td><td>Plan claro, ordenado y con acciones concretas.</td></tr>
           </tbody>
         </table>
       </div>
 
-      <h3>Interpretación de los resultados</h3>
+      <h3>Resultados y comparación</h3>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr><th>Aspecto</th><th>L1 (prom.)</th><th>L2 (prom.)</th><th>N (prom.)</th><th>Ganador</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">Primera palabra</th><td>1.80 s</td><td>3.47 s</td><td>0.93 s</td><td>N</td></tr>
+            <tr><th scope="row">Tiempo total</th><td>17.77 s</td><td>32.80 s</td><td>7.37 s</td><td>N</td></tr>
+            <tr><th scope="row">Tokens/s</th><td>≈ 16.6</td><td>≈ 11.0</td><td>≈ 30.4</td><td>N</td></tr>
+            <tr><th scope="row">Calidad</th><td>4.0</td><td>5.0</td><td>5.0</td><td>Empate entre L2 y N</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>N redujo el tiempo total promedio en un 58.5 % frente a L1 y en un 77.5 % frente a L2.</p>
 
-      <p>
-        En el ejemplo, la configuración en la nube obtuvo el menor
-        tiempo promedio de respuesta, con aproximadamente 8.7 segundos.
-        El modelo local pequeño necesitó 19.1 segundos y el modelo
-        mediano 33.2 segundos. Por lo tanto, la nube fue aproximadamente
-        un 54 % más rápida que L1 y un 74 % más rápida que L2,
-        considerando la reducción del tiempo total.
-      </p>
-
-      <p>
-        En cuanto a calidad, L2 y N alcanzaron una calificación
-        promedio de 5.0 sobre 5, mientras que L1 obtuvo 4.0.
-        Esto ilustra que un modelo más pequeño puede ofrecer
-        respuestas útiles con menos recursos, aunque puede
-        presentar limitaciones en tareas que requieren
-        mayor precisión y profundidad.
-      </p>
-
-      <p>
-        La predicción del ejemplo se cumplió parcialmente:
-        L1 fue el modelo local más rápido y L2 obtuvo mejores
-        calificaciones que L1. Sin embargo, la nube consiguió
-        el menor tiempo total y empató con L2 en calidad.
-      </p>
     </section>
 
     <section>
@@ -479,15 +430,7 @@
         <strong>Rendimiento y calidad de los modelos</strong>
 
         <p>
-          En los resultados del ejemplo, la configuración en la nube
-          fue la más rápida, con un promedio de 8.7 segundos por
-          respuesta, frente a 19.1 segundos del modelo local pequeño
-          y 33.2 segundos del mediano. En calidad, la nube y el
-          modelo local mediano empataron con 5 puntos, mientras
-          que el pequeño obtuvo 4. La predicción se cumplió
-          parcialmente, ya que el modelo pequeño fue el más
-          rápido entre los locales y el mediano generó respuestas
-          de mayor calidad, pero la nube superó a ambos en velocidad.
+          La nube obtuvo el menor tiempo total promedio (7.37 s) y empató con L2 en calidad (5.0). La predicción se cumplió: L1 fue el más rápido entre los modelos locales y L2 obtuvo una mejor nota que L1.
         </p>
       </div>
 
@@ -497,11 +440,10 @@
         <p>
           El modelo local pequeño podría utilizarse en nuestra
           venture para tareas como resumir información general,
-          organizar documentos, clasificar solicitudes o generar
+          organizar documentos, clasificar mensajes o generar
           borradores sencillos sin depender de una conexión
           permanente a internet. Sin embargo, no sería nuestra
-          primera opción para análisis complejos, decisiones
-          financieras o procesos que requieren alta precisión
+          primera opción para análisis complejos, planificación financiera, generación de reportes detallados o procesos que requieren alta precisión
           y razonamiento avanzado. Para estos casos sería
           necesario evaluar modelos más capaces y mantener
           mecanismos de validación humana.
@@ -537,10 +479,7 @@
           Aprendimos que el rendimiento de un modelo depende
           de factores como su cantidad de parámetros, el consumo
           de memoria, la capacidad de procesamiento del equipo
-          y la infraestructura disponible. También observamos
-          que un modelo más grande no necesariamente ofrece
-          respuestas más rápidas, aunque puede proporcionar
-          mejores resultados en determinadas tareas.
+          y la infraestructura disponible. En las tres instrucciones, el modelo local más grande obtuvo mejores notas y tardó más en responder.
         </p>
 
         <p>
